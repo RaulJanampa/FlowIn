@@ -17,10 +17,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("singUp")
-    public ResponseEntity<String> singUpUsuario(
+    @PostMapping("/signUp")
+    public ResponseEntity<UsuarioResponse> signUpUsuario(
             @RequestBody @Validated UsuarioRequest usuarioRequest) {
         UsuarioResponse usuarioResponse = usuarioService.save(usuarioRequest);
-        return ResponseEntity.ok(usuarioResponse.toString());
+        return ResponseEntity.ok(usuarioResponse);
     }
 }
