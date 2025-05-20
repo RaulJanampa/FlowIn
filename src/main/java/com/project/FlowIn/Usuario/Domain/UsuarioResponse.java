@@ -1,6 +1,5 @@
 package com.project.FlowIn.Usuario.Domain;
 
-import com.project.FlowIn.Tipo;
 import lombok.Data;
 
 import java.util.List;

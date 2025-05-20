@@ -1,6 +1,6 @@
 package com.project.FlowIn.Usuario.Domain;
 
-import com.project.FlowIn.Tipo;
+import com.project.FlowIn.Sala.Sala;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,4 +21,8 @@ public class Usuario {
     private Tipo tipo;
     @ElementCollection
     private List<String> artistasFavoritos;
+
+    @ManyToOne
+    @JoinColumn(name = "sala_id")
+    private Sala sala;
 }
