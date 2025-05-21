@@ -8,6 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UsuarioService {
     @Autowired
@@ -21,5 +23,8 @@ public class UsuarioService {
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
         return modelMapper.map(usuarioGuardado, UsuarioResponse.class);
+    }
+    public Usuario findByUsername(String username) {
+        return usuarioRepository.findByUsername(username);
     }
 }

@@ -17,7 +17,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/registrarse")
     public ResponseEntity<UsuarioResponse> signUpUsuario(
             @RequestBody @Validated UsuarioRequest usuarioRequest) {
         UsuarioResponse usuarioResponse = usuarioService.save(usuarioRequest);

@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class UsuarioResponse {
     private Long id;
-    private String nombre;
+    private String username;
     private String mail;
     private List<String> gustosMusicales;
     private Tipo tipo;

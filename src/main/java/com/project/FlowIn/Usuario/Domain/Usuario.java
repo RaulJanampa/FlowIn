@@ -3,6 +3,7 @@ package com.project.FlowIn.Usuario.Domain;
 import com.project.FlowIn.Sala.Sala;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
+    private String username;
     private String mail;
     private String password;
     @ElementCollection

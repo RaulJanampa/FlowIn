@@ -20,8 +20,6 @@ public class Sala {
 
     private String artista;
 
-    private String epoca;
-
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
