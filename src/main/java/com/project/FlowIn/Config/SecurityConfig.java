@@ -4,6 +4,7 @@ import com.project.FlowIn.Usuario.Infrastructure.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -33,16 +34,17 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableAsync
 public class SecurityConfig {
     @Autowired
+    @Lazy
     JWTAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(antMatcher("/usuario/**"), antMatcher("/auth/**")).permitAll().anyRequest().authenticated())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers(antMatcher("/usuario/**"),
+                                antMatcher("/auth/**")).permitAll().anyRequest().authenticated())
+                .sessionManagement(manager ->
+                        manager.sessionCreationPolicy(STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
