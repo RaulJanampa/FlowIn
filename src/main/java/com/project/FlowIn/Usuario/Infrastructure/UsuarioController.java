@@ -27,8 +27,8 @@ public class UsuarioController {
     public ResponseEntity<?> signUpUsuario(@RequestBody @Validated UsuarioRequest usuarioRequest) {
         UsuarioResponse usuarioResponse = usuarioService.save(usuarioRequest);
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(usuarioRequest.getUsername());
-        String token = jwtService.generateToken(userDetails.getUsername());
+        Usuario usuario = usuarioService.findByUsername(usuarioRequest.getUsername());
+        String token = jwtService.generateToken(usuario); // <-- usar el nuevo método
 
         return ResponseEntity.ok("Bearer " + token);
     }

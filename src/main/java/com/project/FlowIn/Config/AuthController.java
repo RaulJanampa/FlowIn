@@ -22,7 +22,7 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         Usuario usuario = usuarioService.findByUsername(username);
         if (usuario != null && passwordEncoder.matches(password, usuario.getPassword())) {
-            String token = jwtService.generateToken(username);
+            String token = jwtService.generateToken(usuario); // <-- usar el nuevo método
             return ResponseEntity.ok("Bearer " + token);
         } else {
             return ResponseEntity.status(401).body("Credenciales inválidas");
