@@ -1,7 +1,7 @@
 package org.example.flowin2.web.dto.sala;
 
-import com.project.FlowIn.Usuario.Domain.UsuarioResponse;
 import lombok.Data;
+import org.example.flowin2.web.dto.usuario.UsuarioResponse;
 
 import java.util.List;
 @Data

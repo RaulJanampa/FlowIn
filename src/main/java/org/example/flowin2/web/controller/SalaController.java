@@ -1,9 +1,16 @@
 package org.example.flowin2.web.controller;
 
-import com.project.FlowIn.Config.JWTService;
-import com.project.FlowIn.Usuario.Domain.Tipo;
-import com.project.FlowIn.Usuario.Domain.Usuario;
-import com.project.FlowIn.Usuario.Infrastructure.UsuarioService;
+import org.example.flowin2.application.sala.SalaService;
+import org.example.flowin2.application.usuario.UsuarioService;
+import org.example.flowin2.domain.sala.model.Estado;
+import org.example.flowin2.domain.sala.model.Sala;
+import org.example.flowin2.domain.sala.repository.SalaRepository;
+import org.example.flowin2.domain.usuario.model.Tipo;
+import org.example.flowin2.domain.usuario.model.Usuario;
+import org.example.flowin2.infrastructure.security.JwtService;
+import org.example.flowin2.web.dto.sala.SalaRequest;
+import org.example.flowin2.web.dto.sala.SalaResponse;
+import org.example.flowin2.web.dto.sala.SalaUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,7 +26,7 @@ public class SalaController {
     @Autowired
     private SalaService salaService;
     @Autowired
-    private JWTService jwtService;
+    private JwtService jwtService;
     @Autowired
     private SalaRepository salaRepository;
     @Autowired

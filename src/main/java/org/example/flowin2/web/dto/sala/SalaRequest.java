@@ -3,6 +3,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.example.flowin2.domain.sala.model.Estado;
 
 import java.util.List;
 

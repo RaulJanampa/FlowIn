@@ -1,7 +1,8 @@
 package org.example.flowin2.web.controller;
 
-import com.project.FlowIn.Usuario.Domain.Usuario;
-import com.project.FlowIn.Usuario.Infrastructure.UsuarioService;
+import org.example.flowin2.application.usuario.UsuarioService;
+import org.example.flowin2.domain.usuario.model.Usuario;
+import org.example.flowin2.infrastructure.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +18,7 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
-    private JWTService jwtService;
+    private JwtService jwtService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 

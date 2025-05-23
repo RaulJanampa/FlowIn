@@ -1,4 +1,7 @@
 package org.example.flowin2.domain.sala.repository;
 
-public interface SalaRepository {
+import org.example.flowin2.domain.sala.model.Sala;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SalaRepository extends JpaRepository<Sala, Long> {
 }

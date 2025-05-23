@@ -1,10 +1,10 @@
 package org.example.flowin2.infrastructure.security;
 
-import com.project.FlowIn.Usuario.Domain.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import org.example.flowin2.domain.usuario.model.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
