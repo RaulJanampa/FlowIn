@@ -1,6 +1,7 @@
 package com.project.FlowIn.Sala;
 
 import com.project.FlowIn.Config.JWTService;
+import com.project.FlowIn.Usuario.Domain.Tipo;
 import com.project.FlowIn.Usuario.Domain.Usuario;
 import com.project.FlowIn.Usuario.Infrastructure.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class SalaController {
     @Autowired
     private JWTService jwtService;
     @Autowired
+    private SalaRepository salaRepository;
+    @Autowired
     private UsuarioService usuarioService; // Servicio para obtener el usuario
 
     @PostMapping()
@@ -37,4 +40,31 @@ public class SalaController {
 
         return ResponseEntity.ok(salaResponse);
     }
+    @PostMapping("/salir")
+    public ResponseEntity<String> salirDeSala() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Usuario usuario = usuarioService.findByUsername(username);
+
+        if (usuario.getTipo() == Tipo.HOST && usuario.getSalaComoHost() != null) {
+            Sala sala = usuario.getSalaComoHost();
+
+            // Elimina al usuario como host de la sala
+            sala.setHost(null);
+            sala.setIdHost(null);
+            sala.setEstado(Estado.INACTIVA); // o cerrala según lógica
+
+            // Revertir el rol del usuario
+            usuario.setTipo(Tipo.USUARIO);
+            usuario.setSalaComoHost(null);
+
+            salaRepository.save(sala);
+            // usuarioRepository.save(usuario); // opcional
+
+            return ResponseEntity.ok("Saliste de la sala y perdiste el rol de HOST");
+        }
+
+        return ResponseEntity.badRequest().body("No eres host de ninguna sala");
+    }
+
 }

@@ -26,4 +26,7 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "sala_id")
     private Sala sala;
+
+    @OneToOne
+    private Sala salaComoHost;
 }

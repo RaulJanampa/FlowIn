@@ -1,5 +1,6 @@
 package com.project.FlowIn.Sala;
 
+import com.project.FlowIn.Usuario.Domain.Tipo;
 import com.project.FlowIn.Usuario.Domain.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,26 @@ public class SalaService {
     private ModelMapper modelMapper;
 
     public SalaResponse save(SalaRequest salaRequest, Usuario usuario) {
-        // Mapea el objeto SalaRequest a Sala
         Sala sala = modelMapper.map(salaRequest, Sala.class);
 
-        // Asocia la sala al usuario (suponiendo que un usuario puede tener una sala)
-        sala.setUsuariosConectados(List.of(usuario)); // Agregar el usuario a la lista de usuarios conectados (si es necesario)
-        usuario.setSala(sala);  // Asociamos la sala al usuario
+        // Asignar host
+        sala.setHost(usuario);
+        sala.setIdHost(usuario.getId());
 
-        // Guarda la sala en el repositorio
-        Sala salaGuardado = salaRepository.save(sala);
+        // Setear usuario como host temporal
+        usuario.setTipo(Tipo.HOST);
+        usuario.setSalaComoHost(sala);
 
-        // Devuelve la respuesta mapeada
-        return modelMapper.map(salaGuardado, SalaResponse.class);
+        // Agregarlo también a los conectados (opcional)
+        sala.setUsuariosConectados(List.of(usuario));
+
+        // Guardar la sala
+        Sala salaGuardada = salaRepository.save(sala);
+
+        // Podrías guardar el usuario actualizado también si tu JPA no lo hace automáticamente
+        // usuarioRepository.save(usuario); <-- opcional si cascade no está configurado
+
+        return modelMapper.map(salaGuardada, SalaResponse.class);
     }
+
 }
