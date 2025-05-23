@@ -1,0 +1,41 @@
+[33mcommit 9423068d2b94c07e1bb69105e454b611fe878a68[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mjwtImplementation[m[33m, [m[1;31morigin/jwtImplementation[m[33m)[m
+Author: unknown <diego.ladrondeguevar@utec.edu.pe>
+Date:   Wed May 21 14:22:08 2025 -0500
+
+    fix: Fix user registration function
+
+[33mcommit ee1e2e960c8cb8b8397e251ebb16d22549abb0d4[m
+Author: unknown <diego.ladrondeguevar@utec.edu.pe>
+Date:   Tue May 20 15:31:20 2025 -0500
+
+    feat: Update pom.xml with JWT library and start implementing JWT authentication
+
+[33mcommit 4c180dff93d122eed411da640ba47d3008994c94[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: unknown <diego.ladrondeguevar@utec.edu.pe>
+Date:   Tue May 20 15:29:00 2025 -0500
+
+    Implement Sala entity with DTOs, repository, and infrastructure. Added POST method. This commit represents a version prior to starting the JWT implementation for the project.
+
+[33mcommit e8d6085f57d2ab0d34647caccd65e847f0243d49[m
+Author: unknown <diego.ladrondeguevar@utec.edu.pe>
+Date:   Tue May 20 14:34:54 2025 -0500
+
+    test: verified that the POST /usuario/signUp method works correctly
+
+[33mcommit 169271a87e408f275a0c7b0ca73056a0a9ee5be6[m
+Author: unknown <diego.ladrondeguevar@utec.edu.pe>
+Date:   Tue May 20 14:15:26 2025 -0500
+
+    feat: implement User entity, DTOs (request/response), service, and repository
+
+[33mcommit 7506901d4fa60728bf2e1ab15f12face13aea33a[m
+Author: RaulJanampa <raul.janampa@utec.edu.pe>
+Date:   Fri May 16 08:00:08 2025 -0500
+
+    feat: Spring Initializr
+
+[33mcommit 4d88fef0bb5f74d9dcf451bd92920fe85e7ad33b[m
+Author: Raúl Janampa Salvatierra <raul.janampa@utec.edu.pe>
+Date:   Fri May 16 07:48:47 2025 -0500
+
+    Initial commit

@@ -16,11 +16,9 @@ public class Sala {
     private String nombre;
 
     @ElementCollection
-    private List<String> género;
+    private List<String> genero;
 
     private String artista;
-
-    private String epoca;
 
     @Enumerated(EnumType.STRING)
     private Estado estado;
@@ -30,6 +28,9 @@ public class Sala {
 
     @OneToMany(mappedBy = "sala")
     private List<Usuario> usuariosConectados;
-    //hoster de la sala (dj)
-    //private Host host;
+    @ManyToOne
+    @JoinColumn(name = "host_id")
+    private Usuario host;
+    private Long idHost;
+
 }
