@@ -2,8 +2,10 @@ package org.example.flowin2.domain.sala.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.flowin2.domain.chatMessage.ChatMessage;
 import org.example.flowin2.domain.usuario.model.Usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,7 +19,7 @@ public class Sala {
 
     @ElementCollection
     private List<String> genero;
-
+ //eliminar artista de la clase sala
     private String artista;
 
     @Enumerated(EnumType.STRING)
@@ -32,5 +34,10 @@ public class Sala {
     @JoinColumn(name = "host_id")
     private Usuario host;
     private Long idHost;
+
+    @ElementCollection
+    @CollectionTable(name = "chat_message", joinColumns = @JoinColumn(name = "sala_id"))
+    @OrderColumn(name = "message_index")
+    private List<ChatMessage> mensajesChat = new ArrayList<>();
 
 }
