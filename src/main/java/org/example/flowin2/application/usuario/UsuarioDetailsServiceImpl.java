@@ -16,10 +16,8 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioService.findByUsername(username);
-        if (usuario == null) {
-            throw new UsernameNotFoundException("Usuario no encontrado con el nombre de usuario: " + username);
-        }
+        Usuario usuario = usuarioService.findByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el nombre de usuario: " + username));
         return User.builder()
                 .username(usuario.getUsername()) // O el campo correspondiente en Usuario
                 .password(usuario.getPassword()) // La contraseña del usuario

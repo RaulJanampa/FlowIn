@@ -66,7 +66,7 @@ public class SalaService {
 
     public SalaResponse unirUsuarioASala(String token, Long salaId, String salaNombre) {
         String username = jwtService.extractUserName(token.substring(7));
-        Usuario usuario = Optional.ofNullable(usuarioRepository.findByUsername(username))
+         usuario = Optional.ofNullable(usuarioRepository.findByUsername(username))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Sala sala = salaRepository.findById(salaId)
@@ -99,7 +99,7 @@ public class SalaService {
 
     public SalaResponse actualizarSalaComoHost(Long id, SalaUpdateRequest request, String token) {
         String username = jwtService.extractUserName(token.substring(7));
-        Usuario host = Optional.ofNullable(usuarioRepository.findByUsername(username))
+        Optional<Usuario> host = Optional.ofNullable(usuarioRepository.findByUsername(username))
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Sala sala = salaRepository.findById(id)

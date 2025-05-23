@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -26,7 +28,7 @@ public class UsuarioController {
         UsuarioResponse usuarioResponse = usuarioService.save(usuarioRequest);
 
         Usuario usuario = usuarioService.findByUsername(usuarioRequest.getUsername());
-        String token = jwtService.generateToken(usuario); // <-- usar el nuevo método
+        String token = jwtService.generateToken(usuario);
 
         return ResponseEntity.ok("Bearer " + token);
     }

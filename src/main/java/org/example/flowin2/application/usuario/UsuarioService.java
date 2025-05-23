@@ -31,13 +31,11 @@ public class UsuarioService {
 
         return modelMapper.map(usuarioGuardado, UsuarioResponse.class);
     }
-    public Usuario findByUsername(String username) {
-        return usuarioRepository.findByUsername(username);
-    }
+    public Optional<Usuario> findByUsername(String username) { return usuarioRepository.findByUsername(username); }
 
     public UsuarioResponse obtenerPerfil(String token) {
         String username = jwtService.extractUserName(token.substring(7));
-        Usuario usuario = Optional.ofNullable(usuarioRepository.findByUsername(username))
+        Usuario usuario = usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         return mapUsuarioToResponse(usuario);
