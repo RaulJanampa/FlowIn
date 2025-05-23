@@ -52,7 +52,7 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 
 ### Diagrama
 
-> *(Incluir aquí una imagen `modelo-entidades.png` con el diagrama Entidad-Relación o de clases)*
+> Agregamos aqui el driagrama
 
 ### Descripción de Entidades
 
