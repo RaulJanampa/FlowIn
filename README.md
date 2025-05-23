@@ -1,18 +1,11 @@
 <div style="display: flex; align-items: center; padding: 20px; background-color: #f5f5f5; border-radius: 10px;">
  <img src="assets/logo.png" alt="FlowIn Logo" width="80" style="margin-right: 20px;"/>
-
-  <div>
-    <h1 style="margin: 0; font-size: 2.2em; color: #0A66C2;">FlowIn</h1>
-    <p style="margin: 5px 0 0 0; font-size: 1.1em;">Innovación que fluye con propósito</p>
-  </div>
-
 </div>
 
-# FlowIn 🎶
 
 **Tu nueva red para compartir música en tiempo real**
 
-> Proyecto desarrollado para el curso **CS 2031 – Desarrollo Basado en Plataforma**
+> Proyecto desarrollado para el curso **CS2031 – Desarrollo Basado en Plataforma**
 
 > **Integrantes**:  
 > - Benites Camacho, Alonso Aarón
