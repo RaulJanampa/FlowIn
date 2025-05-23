@@ -13,7 +13,7 @@ public class SalaRequest {
 
     @NotNull(/*message = "El género no puede ser nulo"*/)
     @Size(min = 1, message = "Debe haber al menos un género")
-    private List<String> género;
+    private List<String> genero;
 
     @NotBlank(message = "El artista no puede estar vacío")
     private String artista;

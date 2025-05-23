@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuario")
@@ -31,5 +28,9 @@ public class UsuarioController {
         String token = jwtService.generateToken(usuario); // <-- usar el nuevo método
 
         return ResponseEntity.ok("Bearer " + token);
+    }
+    @GetMapping("/perfil")
+    public UsuarioResponse verPerfil(@RequestHeader("Authorization") String token) {
+        return usuarioService.obtenerPerfil(token);
     }
 }

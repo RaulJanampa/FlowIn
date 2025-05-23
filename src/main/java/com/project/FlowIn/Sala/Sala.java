@@ -16,7 +16,7 @@ public class Sala {
     private String nombre;
 
     @ElementCollection
-    private List<String> género;
+    private List<String> genero;
 
     private String artista;
 

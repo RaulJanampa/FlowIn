@@ -9,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication; // Importa la clase Authentication de Spring Security
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sala")
@@ -67,4 +66,39 @@ public class SalaController {
         return ResponseEntity.badRequest().body("No eres host de ninguna sala");
     }
 
+
+
+    @GetMapping("/buscar")
+    public List<SalaResponse> buscarSalas(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String genero,
+            @RequestParam(required = false) String artista
+    ) {
+        return salaService.buscarSalas(nombre, genero, artista);
+    }
+
+    @GetMapping("/{id}/{nombre}")
+    public SalaResponse accederSala(
+            @PathVariable Long id,
+            @PathVariable String nombre,
+            @RequestHeader("Authorization") String token
+    ) {
+        return salaService.unirUsuarioASala(token, id, nombre);
+    }
+    @GetMapping("/{id}")
+    public SalaResponse accederSala(
+            @PathVariable Long id,
+            @RequestHeader("Authorization") String token
+    ) {
+        return salaService.unirUsuarioASala(token, id);
+    }
+
+    @PatchMapping("/{id}")
+    public SalaResponse actualizarSala(
+            @PathVariable Long id,
+            @RequestBody SalaUpdateRequest request,
+            @RequestHeader("Authorization") String token
+    ) {
+        return salaService.actualizarSalaComoHost(id, request, token);
+    }
 }
