@@ -8,6 +8,7 @@ import org.example.flowin2.domain.sala.repository.SalaRepository;
 import org.example.flowin2.domain.usuario.model.Tipo;
 import org.example.flowin2.domain.usuario.model.Usuario;
 import org.example.flowin2.infrastructure.security.JwtService;
+import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
 import org.example.flowin2.web.dto.sala.SalaRequest;
 import org.example.flowin2.web.dto.sala.SalaResponse;
 import org.example.flowin2.web.dto.sala.SalaUpdateRequest;
@@ -23,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sala")
 public class SalaController {
+
     @Autowired
     private SalaService salaService;
     @Autowired
@@ -30,50 +32,46 @@ public class SalaController {
     @Autowired
     private SalaRepository salaRepository;
     @Autowired
-    private UsuarioService usuarioService; // Servicio para obtener el usuario
+    private UsuarioService usuarioService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<SalaResponse> sala(@RequestBody @Validated SalaRequest salaRequest) {
-        // Obtener el usuario autenticado desde el contexto de seguridad
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName(); // Obtén el nombre de usuario (o usa otro campo si es necesario)
+        String username = authentication.getName();
 
-        // Busca el usuario por su nombre (o por el ID o el email, dependiendo de cómo esté configurado tu sistema)
-        Usuario usuario = usuarioService.findByUsername(username);
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
 
-        // Ahora pasamos al servicio para guardar la sala y asociarla al usuario
         SalaResponse salaResponse = salaService.save(salaRequest, usuario);
 
         return ResponseEntity.ok(salaResponse);
     }
+
     @PostMapping("/salir")
     public ResponseEntity<String> salirDeSala() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        Usuario usuario = usuarioService.findByUsername(username);
+
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
 
         if (usuario.getTipo() == Tipo.HOST && usuario.getSalaComoHost() != null) {
             Sala sala = usuario.getSalaComoHost();
 
-            // Elimina al usuario como host de la sala
             sala.setHost(null);
             sala.setIdHost(null);
-            sala.setEstado(Estado.INACTIVA); // o cerrala según lógica
+            sala.setEstado(Estado.INACTIVA);
 
-            // Revertir el rol del usuario
             usuario.setTipo(Tipo.USUARIO);
             usuario.setSalaComoHost(null);
 
             salaRepository.save(sala);
-            // usuarioRepository.save(usuario); // opcional
 
             return ResponseEntity.ok("Saliste de la sala y perdiste el rol de HOST");
         }
 
         return ResponseEntity.badRequest().body("No eres host de ninguna sala");
     }
-
-
 
     @GetMapping("/buscar")
     public List<SalaResponse> buscarSalas(
@@ -92,6 +90,7 @@ public class SalaController {
     ) {
         return salaService.unirUsuarioASala(token, id, nombre);
     }
+
     @GetMapping("/{id}")
     public SalaResponse accederSala(
             @PathVariable Long id,
