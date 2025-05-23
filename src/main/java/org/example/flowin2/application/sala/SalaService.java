@@ -51,8 +51,7 @@ public class SalaService {
 
         return salas.stream()
                 .filter(sala -> (nombre == null || sala.getNombre().equalsIgnoreCase(nombre)) &&
-                        (genero == null || sala.getGenero().stream().anyMatch(genero::equals)) &&
-                        (artista == null || sala.getArtista().equalsIgnoreCase(artista)))
+                        (genero == null || sala.getGenero().stream().anyMatch(genero::equals)))
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -107,7 +106,6 @@ public class SalaService {
 
         if (request.getNombre() != null) sala.setNombre(request.getNombre());
         if (request.getGenero() != null) sala.setGenero(Collections.singletonList(request.getGenero()));
-        if (request.getArtista() != null) sala.setArtista(request.getArtista());
         if (request.getCanciones() != null) sala.setCanciones(request.getCanciones());
 
         salaRepository.save(sala);

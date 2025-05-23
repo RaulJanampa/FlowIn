@@ -14,16 +14,14 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //verificar si una sala deberia tener nombre
+
     private String nombre;
 
     @ElementCollection
     private List<String> genero;
- //eliminar artista de la clase sala
-    private String artista;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private Estado estado = Estado.ACTIVA;
 
     @ElementCollection
     private List<String> canciones;
@@ -32,6 +30,7 @@ public class Sala {
     private List<Usuario> usuariosConectados;
     @ManyToOne
     @JoinColumn(name = "host_id")
+    //verificar esto
     private Usuario host;
     private Long idHost;
 
