@@ -1,4 +1,4 @@
-package org.example.flowin2.web.config.exceptions;
+package org.example.flowin2.shared.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

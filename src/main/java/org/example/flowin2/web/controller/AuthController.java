@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
     @Autowired
     private UsuarioService usuarioService;
     @Autowired
@@ -24,12 +25,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        Usuario usuario = usuarioService.findByUsername(username);
-        if (usuario != null && passwordEncoder.matches(password, usuario.getPassword())) {
-            String token = jwtService.generateToken(usuario); // <-- usar el nuevo método
-            return ResponseEntity.ok("Bearer " + token);
-        } else {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
+        Optional<Usuario> optionalUsuario = usuarioService.findByUsername(username);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            if (passwordEncoder.matches(password, usuario.getPassword())) {
+                String token = jwtService.generateToken(usuario);
+                return ResponseEntity.ok("Bearer " + token);
+            }
         }
+
+        return ResponseEntity.status(401).body("Credenciales inválidas");
     }
 }

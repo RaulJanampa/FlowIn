@@ -1,8 +1,8 @@
-package org.example.flowin2.web.config;
+package org.example.flowin2.web.advice;
 
 
-import org.example.flowin2.web.config.exceptions.ResourceConflictException;
-import org.example.flowin2.web.config.exceptions.ResourceNotFoundException;
+import org.example.flowin2.shared.exceptions.ResourceConflictException;
+import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
