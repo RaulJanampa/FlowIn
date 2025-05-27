@@ -1,6 +1,6 @@
-<div style="display: flex; align-items: center; padding: 20px; background-color: #f5f5f5; border-radius: 10px;">
- <img src="assets/logo.png" alt="FlowIn Logo" width="80" style="margin-right: 20px;"/>
-</div>
+# FlowIn
+
+![FlowIn Logo](media/FlowIn/FlowIn.png)
 
 
 **Tu nueva red para compartir música en tiempo real**
