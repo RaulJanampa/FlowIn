@@ -8,11 +8,11 @@ import org.example.flowin2.domain.sala.repository.SalaRepository;
 import org.example.flowin2.domain.usuario.model.Tipo;
 import org.example.flowin2.domain.usuario.model.Usuario;
 import org.example.flowin2.infrastructure.security.JwtService;
+import org.example.flowin2.shared.exceptions.ResourceConflictException;
 import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
 import org.example.flowin2.web.dto.sala.SalaRequest;
 import org.example.flowin2.web.dto.sala.SalaResponse;
 import org.example.flowin2.web.dto.sala.SalaUpdateRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,14 +25,17 @@ import java.util.List;
 @RequestMapping("/sala")
 public class SalaController {
 
-    @Autowired
-    private SalaService salaService;
-    @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private SalaRepository salaRepository;
-    @Autowired
-    private UsuarioService usuarioService;
+    private final SalaService salaService;
+    private final JwtService jwtService;
+    private final SalaRepository salaRepository;
+    private final UsuarioService usuarioService;
+
+    public SalaController(SalaService salaService, JwtService jwtService, SalaRepository salaRepository, UsuarioService usuarioService) {
+        this.salaService = salaService;
+        this.jwtService = jwtService;
+        this.salaRepository = salaRepository;
+        this.usuarioService = usuarioService;
+    }
 
     @PostMapping
     public ResponseEntity<SalaResponse> sala(@RequestBody @Validated SalaRequest salaRequest) {
@@ -44,7 +47,7 @@ public class SalaController {
 
         SalaResponse salaResponse = salaService.save(salaRequest, usuario);
 
-        return ResponseEntity.ok(salaResponse);
+        return ResponseEntity.status(201).body(salaResponse);
     }
 
     @PostMapping("/salir")
@@ -69,41 +72,45 @@ public class SalaController {
             return ResponseEntity.ok("Saliste de la sala y perdiste el rol de HOST");
         }
 
-        return ResponseEntity.badRequest().body("No eres host de ninguna sala");
+        throw new ResourceConflictException("No eres host de ninguna sala");
     }
 
     @GetMapping("/buscar")
-    public List<SalaResponse> buscarSalas(
+    public ResponseEntity<List<SalaResponse>> buscarSalas(
             @RequestParam(required = false) String nombre,
             @RequestParam(required = false) String genero,
             @RequestParam(required = false) String artista
     ) {
-        return salaService.buscarSalas(nombre, genero, artista);
+        List<SalaResponse> salas = salaService.buscarSalas(nombre, genero, artista);
+        return ResponseEntity.ok(salas);
     }
 
     @GetMapping("/{id}/{nombre}")
-    public SalaResponse accederSala(
+    public ResponseEntity<SalaResponse> accederSala(
             @PathVariable Long id,
             @PathVariable String nombre,
             @RequestHeader("Authorization") String token
     ) {
-        return salaService.unirUsuarioASala(token, id, nombre);
+        SalaResponse sala = salaService.unirUsuarioASala(token, id, nombre);
+        return ResponseEntity.ok(sala);
     }
 
     @GetMapping("/{id}")
-    public SalaResponse accederSala(
+    public ResponseEntity<SalaResponse> accederSala(
             @PathVariable Long id,
             @RequestHeader("Authorization") String token
     ) {
-        return salaService.unirUsuarioASala(token, id);
+        SalaResponse sala = salaService.unirUsuarioASala(token, id);
+        return ResponseEntity.ok(sala);
     }
 
     @PatchMapping("/{id}")
-    public SalaResponse actualizarSala(
+    public ResponseEntity<SalaResponse> actualizarSala(
             @PathVariable Long id,
             @RequestBody SalaUpdateRequest request,
             @RequestHeader("Authorization") String token
     ) {
-        return salaService.actualizarSalaComoHost(id, request, token);
+        SalaResponse salaActualizada = salaService.actualizarSalaComoHost(id, request, token);
+        return ResponseEntity.ok(salaActualizada);
     }
 }

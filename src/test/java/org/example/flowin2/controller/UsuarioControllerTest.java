@@ -64,7 +64,7 @@ public class UsuarioControllerTest {
         mockMvc.perform(post("/usuario/registrarse")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(usuarioRequest)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().string("Bearer mocked-jwt-token"));
 
         verify(usuarioService).save(any(UsuarioRequest.class));

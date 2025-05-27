@@ -18,10 +18,9 @@ public class UsuarioRequest {
     private String mail;
     @NotBlank
     private String password;
-    //Puede que no quiera dar sus gustos
     private List<String> gustosMusicales;
-    //hay que ver como hacemos para el login de un usuario y traerlo de Security
+
     private Tipo tipo = Tipo.USUARIO;
-    //Puede ser nulo
+
     private List<String> artistasFavoritos;
 }

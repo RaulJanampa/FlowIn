@@ -1,4 +1,4 @@
-package org.example.flowin2.dto;
+package org.example.flowin2.dto.usuario;
 
 import org.example.flowin2.domain.usuario.model.Tipo;
 import org.example.flowin2.web.dto.usuario.UsuarioRequest;

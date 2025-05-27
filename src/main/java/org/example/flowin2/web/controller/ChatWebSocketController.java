@@ -15,23 +15,31 @@ import java.util.List;
 @Controller
 public class ChatWebSocketController {
 
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
+    private final ChatService chatService;
+    private final JwtService jwtService;
 
-    @Autowired
-    private ChatService chatService;
+    public ChatWebSocketController(SimpMessagingTemplate messagingTemplate, ChatService chatService, JwtService jwtService) {
+        this.messagingTemplate = messagingTemplate;
+        this.chatService = chatService;
+        this.jwtService = jwtService;
+    }
 
-    @Autowired
-    private JwtService jwtService;
-
-    @MessageMapping("/chat.send") // /app/chat.send
+    @MessageMapping("/chat.send")
     public void enviarMensaje(ChatMessageDTO message, @Header("Authorization") String token) {
-        String username = jwtService.extractUserName(token.replace("Bearer ", ""));
+        try {
+            String username = jwtService.extractUserName(token.replace("Bearer ", ""));
 
-        List<ChatMessage> mensajesActualizados = chatService.guardarMensaje(
-                message.getSalaId(), username, message.getContenido()
-        );
+            List<ChatMessage> mensajesActualizados = chatService.guardarMensaje(
+                    message.getSalaId(), username, message.getContenido()
+            );
 
-        messagingTemplate.convertAndSend("/topic/sala/" + message.getSalaId(), mensajesActualizados);
+            messagingTemplate.convertAndSend("/topic/sala/" + message.getSalaId(), mensajesActualizados);
+        } catch (Exception e) {
+            messagingTemplate.convertAndSend(
+                    "/topic/error/" + message.getSalaId(),
+                    "Error al procesar mensaje: " + e.getMessage()
+            );
+        }
     }
 }

@@ -1,4 +1,4 @@
-package org.example.flowin2.dto;
+package org.example.flowin2.dto.chatMessageDTO;
 
 import org.example.flowin2.web.dto.chatMessage.ChatMessageDTO;
 import org.junit.jupiter.api.Test;

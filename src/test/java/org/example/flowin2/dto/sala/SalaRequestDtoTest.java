@@ -1,4 +1,4 @@
-package org.example.flowin2.dto;
+package org.example.flowin2.dto.sala;
 
 import org.example.flowin2.domain.sala.model.Estado;
 import org.example.flowin2.web.dto.sala.SalaRequest;

@@ -1,4 +1,4 @@
-package org.example.flowin2.dto;
+package org.example.flowin2.dto.sala;
 
 import org.example.flowin2.web.dto.sala.SalaUpdateRequest;
 import org.junit.jupiter.api.Test;

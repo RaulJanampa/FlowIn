@@ -82,7 +82,7 @@ public class SalaControllerTest {
         mockMvc.perform(post("/sala")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(salaRequest)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().json(new ObjectMapper().writeValueAsString(salaResponse)));
 
         verify(usuarioService).findByUsername("testuser");
@@ -145,7 +145,7 @@ public class SalaControllerTest {
         mockMvc.perform(post("/sala")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(salaRequest)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().json(new ObjectMapper().writeValueAsString(salaResponse)));
 
         verify(usuarioService).findByUsername("hostuser");
