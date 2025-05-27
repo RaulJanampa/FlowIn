@@ -1,6 +1,6 @@
 # FlowIn
 
-media/FlowIn/FlowIn.png
+![FlowIn Logo](media/FlowIn/FlowIn.png)
 
 
 **Tu nueva red para compartir música en tiempo real**
