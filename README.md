@@ -1,9 +1,4 @@
 <img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="300"/>
-
-Tu nueva red para compartir música en tiempo real.
-
-
-
 **Tu nueva red para compartir música en tiempo real**
 
 > Proyecto desarrollado para el curso **CS2031 – Desarrollo Basado en Plataforma**
