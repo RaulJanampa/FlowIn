@@ -1,4 +1,4 @@
-<img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="150"/>
+<img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="300"/>
 
 Tu nueva red para compartir música en tiempo real.
 
