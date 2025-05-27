@@ -1,6 +1,7 @@
-# FlowIn
+<img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="150"/>
 
-![FlowIn Logo](media/FlowIn/FlowIn.png)
+Tu nueva red para compartir música en tiempo real.
+
 
 
 **Tu nueva red para compartir música en tiempo real**
