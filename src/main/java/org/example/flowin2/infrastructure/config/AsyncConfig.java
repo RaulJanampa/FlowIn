@@ -1,4 +1,4 @@
-package org.example.flowin2.config;
+package org.example.flowin2.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

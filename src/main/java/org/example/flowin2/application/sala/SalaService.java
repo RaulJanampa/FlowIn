@@ -35,7 +35,6 @@ public class SalaService {
         Sala sala = modelMapper.map(salaRequest, Sala.class);
 
         sala.setHost(usuario);
-        sala.setIdHost(usuario.getId());
 
         usuario.setTipo(Tipo.HOST);
         usuario.setSalaComoHost(sala);

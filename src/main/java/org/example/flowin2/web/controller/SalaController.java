@@ -59,7 +59,6 @@ public class SalaController {
             Sala sala = usuario.getSalaComoHost();
 
             sala.setHost(null);
-            sala.setIdHost(null);
             sala.setEstado(Estado.INACTIVA);
 
             usuario.setTipo(Tipo.USUARIO);

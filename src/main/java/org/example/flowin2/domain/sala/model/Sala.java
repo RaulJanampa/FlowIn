@@ -32,7 +32,6 @@ public class Sala {
     @JoinColumn(name = "host_id")
     //verificar esto
     private Usuario host;
-    private Long idHost;
 
     @ElementCollection
     @CollectionTable(name = "chat_message", joinColumns = @JoinColumn(name = "sala_id"))
