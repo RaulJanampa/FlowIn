@@ -1,7 +1,8 @@
-<img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="300"/>
+<img src="media/FlowIn/FlowIn.png" alt="FlowIn Logo" width="450"/>
+
 **Tu nueva red para compartir música en tiempo real**
 
-> Proyecto desarrollado para el curso **CS2031 – Desarrollo Basado en Plataforma**
+> **CS2031 – Desarrollo Basado en Plataforma**
 
 > **Integrantes**:  
 > - Benites Camacho, Alonso Aarón
