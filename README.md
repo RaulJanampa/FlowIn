@@ -16,7 +16,7 @@
 |--------------------------------|----------------------------------------------------------------|
 | 1. ❗ Identificación del Problema o Necesidad  | - Descripción del Problema<br>- Justificación                |
 | 2. 💡 Descripción de la Solución              | - Funcionalidades Implementadas<br>- Tecnologías Utilizadas  |
-| 3. 🗂️ Modelo de Entidades                      | - Diagrama<br>- Descripción de Entidades                     |
+| 3. 🗂️ Modelo de Entidades                      | - Diagrama<br>- Descripción de Entidades<br>- Relaciones                     |
 | 4. 🧪 Testing y Manejo de Errores             | - Niveles de Testing Realizados<br>- Resultados<br>- Manejo de Errores |
 | 5. 🔒 Medidas de Seguridad Implementadas      | - Seguridad de Datos<br>- Prevención de Vulnerabilidades      |
 | 6. ⚡ Eventos y Asincronía                     | - Evento principal utilizado<br>- Listener asíncrono<br>- Configuración del ejecutor asíncrono<br>- Importancia de la asincronía |
@@ -79,16 +79,16 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 ## 🧪 Testing y Manejo de Errores
 
 ### Niveles de Testing Realizados
-- Pruebas unitarias con mocks para controladores, validando códigos HTTP y DTOs.
-- Pruebas de integración usando Testcontainers y @SpringBootTest para levantar un contenedor PostgreSQL en Docker.
-- Pruebas funcionales de WebSocket mediante un cliente HTML para verificar la comunicación en tiempo real.
+- Pruebas unitarias con mocks para controladores, validando códigos `HTTP` y `DTOs`.
+- Pruebas de integración usando `Testcontainers` y `@SpringBootTest` para levantar un contenedor `PostgreSQL` en `Docker`.
+- Pruebas funcionales de `WebSocket` mediante un cliente `HTML` para verificar la comunicación en tiempo real.
 
 ### Resultados
-- Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del WebSocket, pero logramos resolverlo implementando un test HTML desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos HTTP inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
+- Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del `WebSocket`, pero logramos resolverlo implementando un test `HTML` desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos `HTTP` inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
 ![Resultados pruebas](media/pruebatest.png)
 
 ### Manejo de Errores
-- Se implementó un manejador global de excepciones usando `@ControllerAdvice` para capturar errores comunes de forma centralizada. Se definieron excepciones personalizadas como `ResourceNotFoundException` y `ResourceConflictException`, que devuelven respuestas HTTP con códigos 404 y 409 respectivamente, junto con mensajes descriptivos. Esto permite manejar errores de manera consistente y brindar respuestas claras y apropiadas a los clientes, mejorando la robustez y mantenibilidad del sistema.
+- Se implementó un manejador global de excepciones usando `@ControllerAdvice` para capturar errores comunes de forma centralizada. Se definieron excepciones personalizadas como `ResourceNotFoundException` y `ResourceConflictException`, que devuelven respuestas `HTTP` con códigos 404 y 409 respectivamente, junto con mensajes descriptivos. Esto permite manejar errores de manera consistente y brindar respuestas claras y apropiadas a los clientes, mejorando la robustez y mantenibilidad del sistema.
 ```java
 @ControllerAdvice
 public class GlobalExceptionHandler {
