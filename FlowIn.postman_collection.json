@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "92c178d2-4828-489a-a050-a3de40f6e0f9",
+		"name": "FlowIn",
+		"description": "## 🌐 FlowIn API – Colección de Endpoints\n\nBienvenido/a a la colección oficial de pruebas para **FlowIn**, una plataforma social para compartir música y gestionar salas en tiempo real.\n\n### 🎯 Objetivo\n\nEsta colección permite probar los flujos clave del sistema:  \n  \nregistro, autenticación, creación de salas, acceso, salida y modificación.\n\n---\n\n### 🧪 Requisitos\n\n- 🔐 **Autenticación JWT**:\n    \n    - Al hacer login, se obtiene un token con prefijo `Bearer`.\n        \n    - El token se guarda automáticamente como variable de entorno `{{cleanToken}}`.\n        \n    - Se utiliza en las demás peticiones mediante el header:  \n        `Authorization: Bearer {{cleanToken}}`\n        \n- 🌍 **Variables definidas**:\n    \n    - `{{base_url}}` → Ej: `http://localhost:8080`\n        \n\n---\n\n### 📌 Endpoints disponibles\n\n#### 🔐 Autenticación\n\n- `POST Register_Usuario`: Registra un nuevo usuario\n    \n- `POST Login_Usuario`: Inicia sesión y obtiene JWT\n    \n- `GET VerPerfil`: Verifica token, devuelve datos del usuario autenticado\n    \n\n#### 🎧 Gestión de salas\n\n- `POST CrearSala`: Crea una nueva sala como HOST\n    \n- `POST SalirDeSala`: Sale de la sala (HOST elimina la sala y desconecta usuarios)\n    \n- `GET BuscarSalas`: Lista todas las salas activas\n    \n- `GET AccederSalaId`: Une al usuario a una sala por ID\n    \n- `GET AccederSalaIdNombre`: Une al usuario a una sala por ID y nombre\n    \n- `PATCH ModificarSala`: Permite modificar el nombre o privacidad de la sala",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43499177",
+		"_collection_link": "https://rauls-2877166.postman.co/workspace/43f44f6c-cd88-4909-bf62-563ed881e12e/collection/43499177-92c178d2-4828-489a-a050-a3de40f6e0f9?action=share&source=collection_link&creator=43499177"
+	},
+	"item": [
+		{
+			"name": "Register_Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let rawToken = pm.response.text();",
+							"",
+							"// Verifica si comienza con \"Bearer \"",
+							"if (rawToken && rawToken.startsWith(\"Bearer \")) {",
+							"    let token = rawToken.substring(7);",
+							"    pm.collectionVariables.set(\"cleanToken\", token);",
+							"    console.log(\"✅ Token limpio guardado:\", token);",
+							"} else {",
+							"    console.warn(\"⚠️ No se encontró un token con el prefijo 'Bearer ': \", rawToken);",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"\",\n    \"mail\": \"\",\n    \"password\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/usuario/registrarse",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usuario",
+						"registrarse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login_Usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let rawToken = pm.response.text();",
+							"",
+							"// Verifica si comienza con \"Bearer \"",
+							"if (rawToken && rawToken.startsWith(\"Bearer \")) {",
+							"    let token = rawToken.substring(7);",
+							"    pm.collectionVariables.set(\"cleanToken\", token);",
+							"    console.log(\"✅ Token limpio guardado:\", token);",
+							"} else {",
+							"    console.warn(\"⚠️ No se encontró un token con el prefijo 'Bearer ': \", rawToken);",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/auth/login?username=Raul&password=rauljs52",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "Raul"
+						},
+						{
+							"key": "password",
+							"value": "rauljs52"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VerPerfil",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/usuario/perfil",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"usuario",
+						"perfil"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearSala",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"\",\n    \"genero\": [\"\", \"\"],\n    \"canciones\": [\"\", \"\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/sala",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SalirDeSala",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/sala/salir",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala",
+						"salir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuscarSalas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/sala/buscar",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala",
+						"buscar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AccederSalaId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/sala/{id}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AccederSalaIdNombre",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/sala/{id}/{nombre}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala",
+						"{id}",
+						"{nombre}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ModificarSala",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{cleanToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"\",\n    \"genero\": [\"\", \"\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/sala/{id}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sala",
+						"{id}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
