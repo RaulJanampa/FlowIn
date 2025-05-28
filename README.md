@@ -2,7 +2,7 @@
 
 **Tu nueva red para compartir música en tiempo real**
 
-> **CS2031 – Desarrollo Basado en Plataforma**
+> **CS2031 – Desarrollo Basado en Plataformas**
 
 > **Integrantes**:  
 > - Benites Camacho, Alonso Aarón
@@ -10,7 +10,21 @@
 > - Janampa Salvatierra, Raúl
 
 ---
+## 📑 Tabla de Contenidos
 
+| Sección                         | Subsección                                                     |
+|--------------------------------|----------------------------------------------------------------|
+| 1. ❗ Identificación del Problema o Necesidad  | - Descripción del Problema<br>- Justificación                |
+| 2. 💡 Descripción de la Solución              | - Funcionalidades Implementadas<br>- Tecnologías Utilizadas  |
+| 3. 🗂️ Modelo de Entidades                      | - Diagrama<br>- Descripción de Entidades<br>- Relaciones                     |
+| 4. 🧪 Testing y Manejo de Errores             | - Niveles de Testing Realizados<br>- Resultados<br>- Manejo de Errores |
+| 5. 🔒 Medidas de Seguridad Implementadas      | - Seguridad de Datos<br>- Prevención de Vulnerabilidades      |
+| 6. ⚡ Eventos y Asincronía                     | - Evento principal utilizado<br>- Listener asíncrono<br>- Configuración del ejecutor asíncrono<br>- Importancia de la asincronía |
+| 7. 👾 GitHub                                 | - Uso de issues<br>- Deployment |
+| 8. ✅ Conclusión                              | - Logros del Proyecto<br>- Aprendizajes Clave<br>- Trabajo Futuro |
+| 9. 📎 Apéndices                              |                                                                |
+
+---
 ## ❗ Identificación del Problema o Necesidad
 
 ### Descripción del Problema
@@ -53,31 +67,28 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 
 - **Usuario**: ID, nombre, email, contraseña, gustos musicales, tipo de oyente, artistas favoritos.
 - **Sala**: ID, nombre, categoría (género/artista), estado, usuarios activos, canciones compartidas.
-- **Canción**: ID, título, artista, álbum, duración, fuente (Spotify, Apple Music, manual).
-- **Mensaje**: ID, contenido, autor, timestamp.
-- **Recomendación**: ID, preferencias del usuario, perfiles similares, salas sugeridas.
+- **ChatMessage**(Mensaje): Username, contenido y timestamp para representar mensajes dentro de una sala.
 
 ### Relaciones
 
-- Un usuario puede crear y unirse a múltiples salas (Many to Many).
-- Una sala contiene muchas canciones y usuarios (Many to Many).
-- Los usuarios se comunican mediante mensajes en salas (One to Many).
-- Cada recomendación está asociada a un único usuario (One to One).
+- Un usuario puede estar conectado a una sala (`ManyToOne`) y puede ser host de una sala (`OneToOne`).
+- Una sala puede tener muchos usuarios conectados (`OneToMany`).
+- Una sala contiene múltiples mensajes de chat almacenados como colección embebida (`ElementCollection`).
 
 ---
 ## 🧪 Testing y Manejo de Errores
 
 ### Niveles de Testing Realizados
-- Pruebas unitarias con mocks para controladores, validando códigos HTTP y DTOs.
-- Pruebas de integración usando Testcontainers y @SpringBootTest para levantar un contenedor PostgreSQL en Docker.
-- Pruebas funcionales de WebSocket mediante un cliente HTML para verificar la comunicación en tiempo real.
+- Pruebas unitarias con mocks para controladores, validando códigos `HTTP` y `DTOs`.
+- Pruebas de integración usando `Testcontainers` y `@SpringBootTest` para levantar un contenedor `PostgreSQL` en `Docker`.
+- Pruebas funcionales de `WebSocket` mediante un cliente `HTML` para verificar la comunicación en tiempo real.
 
 ### Resultados
-- Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del WebSocket, pero logramos resolverlo implementando un test HTML desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos HTTP inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
-- AQUI SE VA A COCAR UNA IMAGEN
+- Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del `WebSocket`, pero logramos resolverlo implementando un test `HTML` desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos `HTTP` inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
+![Resultados pruebas](media/pruebatest.png)
 
 ### Manejo de Errores
-- Se implementó un manejador global de excepciones usando `@ControllerAdvice` para capturar errores comunes de forma centralizada. Se definieron excepciones personalizadas como `ResourceNotFoundException` y `ResourceConflictException`, que devuelven respuestas HTTP con códigos 404 y 409 respectivamente, junto con mensajes descriptivos. Esto permite manejar errores de manera consistente y brindar respuestas claras y apropiadas a los clientes, mejorando la robustez y mantenibilidad del sistema.
+- Se implementó un manejador global de excepciones usando `@ControllerAdvice` para capturar errores comunes de forma centralizada. Se definieron excepciones personalizadas como `ResourceNotFoundException` y `ResourceConflictException`, que devuelven respuestas `HTTP` con códigos 404 y 409 respectivamente, junto con mensajes descriptivos. Esto permite manejar errores de manera consistente y brindar respuestas claras y apropiadas a los clientes, mejorando la robustez y mantenibilidad del sistema.
 ```java
 @ControllerAdvice
 public class GlobalExceptionHandler {
