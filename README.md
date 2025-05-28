@@ -10,7 +10,21 @@
 > - Janampa Salvatierra, Raúl
 
 ---
+## 📑 Tabla de Contenidos
 
+| Sección                         | Subsección                                                     |
+|--------------------------------|----------------------------------------------------------------|
+| 1. ❗ Identificación del Problema o Necesidad  | - Descripción del Problema<br>- Justificación                |
+| 2. 💡 Descripción de la Solución              | - Funcionalidades Implementadas<br>- Tecnologías Utilizadas  |
+| 3. 🗂️ Modelo de Entidades                      | - Diagrama<br>- Descripción de Entidades                     |
+| 4. 🧪 Testing y Manejo de Errores             | - Niveles de Testing Realizados<br>- Resultados<br>- Manejo de Errores |
+| 5. 🔒 Medidas de Seguridad Implementadas      | - Seguridad de Datos<br>- Prevención de Vulnerabilidades      |
+| 6. ⚡ Eventos y Asincronía                     | - Evento principal utilizado<br>- Listener asíncrono<br>- Configuración del ejecutor asíncrono<br>- Importancia de la asincronía |
+| 7. 👾 GitHub                                 | - Uso de issues |
+| 8. ✅ Conclusión                              | - Logros del Proyecto<br>- Aprendizajes Clave<br>- Trabajo Futuro |
+| 9. 📎 Apéndices                              |                                                                |
+
+---
 ## ❗ Identificación del Problema o Necesidad
 
 ### Descripción del Problema
@@ -71,7 +85,7 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 
 ### Resultados
 - Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del WebSocket, pero logramos resolverlo implementando un test HTML desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos HTTP inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
-- AQUI SE VA A COCAR UNA IMAGEN
+![Resultados pruebas](media/pruebatest.png)
 
 ### Manejo de Errores
 - Se implementó un manejador global de excepciones usando `@ControllerAdvice` para capturar errores comunes de forma centralizada. Se definieron excepciones personalizadas como `ResourceNotFoundException` y `ResourceConflictException`, que devuelven respuestas HTTP con códigos 404 y 409 respectivamente, junto con mensajes descriptivos. Esto permite manejar errores de manera consistente y brindar respuestas claras y apropiadas a los clientes, mejorando la robustez y mantenibilidad del sistema.
