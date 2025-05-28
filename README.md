@@ -20,7 +20,7 @@
 | 4. 🧪 Testing y Manejo de Errores             | - Niveles de Testing Realizados<br>- Resultados<br>- Manejo de Errores |
 | 5. 🔒 Medidas de Seguridad Implementadas      | - Seguridad de Datos<br>- Prevención de Vulnerabilidades      |
 | 6. ⚡ Eventos y Asincronía                     | - Evento principal utilizado<br>- Listener asíncrono<br>- Configuración del ejecutor asíncrono<br>- Importancia de la asincronía |
-| 7. 👾 GitHub                                 | - Uso de issues |
+| 7. 👾 GitHub                                 | - Uso de issues<br>- Deployment |
 | 8. ✅ Conclusión                              | - Logros del Proyecto<br>- Aprendizajes Clave<br>- Trabajo Futuro |
 | 9. 📎 Apéndices                              |                                                                |
 
