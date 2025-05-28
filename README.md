@@ -60,8 +60,7 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 ## 🗂️ Modelo de Entidades
 
 ### Diagrama
-
-> Agregamos aqui el driagrama
+<img src="media/Diagrama.jpg" alt="Diagrama" width="420">
 
 ### Descripción de Entidades
 
