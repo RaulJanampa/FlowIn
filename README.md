@@ -85,7 +85,6 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 
 ### Resultados
 - Se completaron 44 pruebas en diferentes componentes del sistema. Al principio, tuvimos dificultades para validar el funcionamiento del `WebSocket`, pero logramos resolverlo implementando un test `HTML` desde el backend que confirmó su correcto desempeño. Además, detectamos que varios controladores devolvían códigos `HTTP` inconsistentes, por lo que se decidió estandarizar estos códigos para asegurar respuestas claras y confiables en toda la aplicación.
-![Resultados pruebas](media/Prueba2Deplyment.jpg)
 ![Resultados pruebas](media/pruebatest.png)
 
 ### Manejo de Errores
@@ -209,7 +208,7 @@ Ejecutar tareas como el envío de correos en segundo plano evita bloqueos en la 
 ### Deployment
 Nota: En la rama con nombre: RamaDeployment es donde se encuentra como está el ec2 por dentro, además de incluir un .env para probar con el comando ssh -i springboot-key.pem ubuntu@44.216.85.242 con una IP estática asociada a la instancia de ec2 (ojalá no se haya cerrado la instancia)
 El **deployment** fue la parte más difícil del proyecto. Para demostrar que logramos hacerlo exitosamente, adjuntamos una prueba visual en la imagen:
-
+![Resultados 2 de Deployment](media/Prueba2Deplyment.jpg)
 ![Prueba de Deployment](media/DeploymentPrueba.jpg)
 
 Además, todo lo relacionado con la configuración en Ubuntu y los archivos subidos para el despliegue se encuentran en la rama `RamaDeployment`.  
