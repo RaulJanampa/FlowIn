@@ -2,7 +2,7 @@
 
 **Tu nueva red para compartir música en tiempo real**
 
-> **CS2031 – Desarrollo Basado en Plataforma**
+> **CS2031 – Desarrollo Basado en Plataformas**
 
 > **Integrantes**:  
 > - Benites Camacho, Alonso Aarón
