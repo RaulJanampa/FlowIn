@@ -206,6 +206,7 @@ Ejecutar tareas como el envío de correos en segundo plano evita bloqueos en la 
 - Gracias a las herramientas de GitHub, mantuvimos el proyecto organizado mediante la creación de issues para reportar bugs o proponer nuevas funcionalidades. Para asegurar el seguimiento y asignación de tareas, usamos etiquetas y asignamos responsables. Además, utilizamos la funcionalidad `.Closes` en los pull requests para vincular automáticamente los issues resueltos, facilitando el control y cierre eficiente de las tareas.
 
 ### Deployment
+Nota: En la rama con nombre: RamaDeployment es donde se encuentra como está el ec2 por dentro además de incluir un .env para probar con el comando ssh -i springboot-key.pem ubuntu@52.91.97.10 (ojalá no se haya cerrado la instancia), 
 El **deployment** fue la parte más difícil del proyecto. Para demostrar que logramos hacerlo exitosamente, adjuntamos una prueba visual en la imagen:
 
 ![Prueba de Deployment](media/DeploymentPrueba.jpg)
