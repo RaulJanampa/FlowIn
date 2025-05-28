@@ -53,16 +53,13 @@ Es importante ofrecer a los usuarios una experiencia musical más interactiva y 
 
 - **Usuario**: ID, nombre, email, contraseña, gustos musicales, tipo de oyente, artistas favoritos.
 - **Sala**: ID, nombre, categoría (género/artista), estado, usuarios activos, canciones compartidas.
-- **Canción**: ID, título, artista, álbum, duración, fuente (Spotify, Apple Music, manual).
-- **Mensaje**: ID, contenido, autor, timestamp.
-- **Recomendación**: ID, preferencias del usuario, perfiles similares, salas sugeridas.
+- **ChatMessage**(Mensaje): Username, contenido y timestamp para representar mensajes dentro de una sala.
 
 ### Relaciones
 
-- Un usuario puede crear y unirse a múltiples salas (Many to Many).
-- Una sala contiene muchas canciones y usuarios (Many to Many).
-- Los usuarios se comunican mediante mensajes en salas (One to Many).
-- Cada recomendación está asociada a un único usuario (One to One).
+- Un usuario puede estar conectado a una sala (`ManyToOne`) y puede ser host de una sala (`OneToOne`).
+- Una sala puede tener muchos usuarios conectados (`OneToMany`).
+- Una sala contiene múltiples mensajes de chat almacenados como colección embebida (`ElementCollection`).
 
 ---
 ## 🧪 Testing y Manejo de Errores
