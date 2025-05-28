@@ -205,6 +205,18 @@ Ejecutar tareas como el envío de correos en segundo plano evita bloqueos en la 
 
 - Gracias a las herramientas de GitHub, mantuvimos el proyecto organizado mediante la creación de issues para reportar bugs o proponer nuevas funcionalidades. Para asegurar el seguimiento y asignación de tareas, usamos etiquetas y asignamos responsables. Además, utilizamos la funcionalidad `.Closes` en los pull requests para vincular automáticamente los issues resueltos, facilitando el control y cierre eficiente de las tareas.
 
+### Deployment
+El **deployment** fue la parte más difícil del proyecto. Para demostrar que logramos hacerlo exitosamente, adjuntamos una prueba visual en la imagen:
+
+![Prueba de Deployment](media/DeploymentPrueba.jpg)
+
+Además, todo lo relacionado con la configuración en Ubuntu y los archivos subidos para el despliegue se encuentran en la rama `RamaDeployment`.  
+Puedes cambiar a esa rama con el siguiente comando:
+
+```bash
+git checkout RamaDeployment
+```
+
 ---
 ## ✅ Conclusión
 
