@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,10 +40,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers(antMatcher("/usuario/**"),
-                                antMatcher("/auth/**")).permitAll().anyRequest().authenticated())
+                        authorize
+                                .requestMatchers(
+                                        "/usuario/registrarse",
+                                        "/auth/login"
+                                ).permitAll()  // Rutas públicas
+                                .anyRequest().authenticated()  // Todo lo demás protegido
+                )
                 .sessionManagement(manager ->
-                        manager.sessionCreationPolicy(STATELESS))
+                        manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
