@@ -33,7 +33,7 @@ public class Sala {
     //verificar esto
     private Usuario host;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chat_message", joinColumns = @JoinColumn(name = "sala_id"))
     @OrderColumn(name = "message_index")
     private List<ChatMessage> mensajesChat = new ArrayList<>();

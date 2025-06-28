@@ -3,17 +3,21 @@ package org.example.flowin2.application.chat;
 import org.example.flowin2.domain.chatMessage.ChatMessage;
 import org.example.flowin2.domain.sala.model.Sala;
 import org.example.flowin2.domain.sala.repository.SalaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class ChatService {
 
-    @Autowired
-    private SalaRepository salaRepository;
+    private final SalaRepository salaRepository;
+
+    public ChatService(SalaRepository salaRepository) {
+        this.salaRepository = salaRepository;
+    }
 
     public List<ChatMessage> guardarMensaje(Long salaId, String username, String contenido) {
         Sala sala = salaRepository.findById(salaId)

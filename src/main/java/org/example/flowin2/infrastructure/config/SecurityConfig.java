@@ -44,9 +44,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/usuario/registrarse", "/auth/login").permitAll()
+                                .requestMatchers(
+                                        "/usuario/registrarse",
+                                        "/auth/login",
+                                        "/ws-chat/**",         // ✅ Permitir WebSocket handshake
+                                        "/topic/**",           // ✅ Permitir recibir mensajes
+                                        "/app/**"              // ✅ Permitir enviar mensajes
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
+
                 .sessionManagement(manager ->
                         manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
