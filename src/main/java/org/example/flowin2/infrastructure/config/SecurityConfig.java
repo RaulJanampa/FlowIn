@@ -46,6 +46,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(
                                         "/usuario/registrarse",
+                                        "/music/**",
                                         "/auth/login",
                                         "/ws-chat/**",         // ✅ Permitir WebSocket handshake
                                         "/topic/**",           // ✅ Permitir recibir mensajes
