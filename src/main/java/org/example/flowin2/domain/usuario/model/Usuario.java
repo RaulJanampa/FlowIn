@@ -12,13 +12,19 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
+
     private String mail;
+
     private String password;
+
     @ElementCollection
     private List<String> gustosMusicales;
+
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
+
     @ElementCollection
     private List<String> artistasFavoritos;
 

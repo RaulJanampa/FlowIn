@@ -18,6 +18,7 @@ public class UsuarioRequest {
     private String mail;
     @NotBlank
     private String password;
+
     private List<String> gustosMusicales;
 
     private Tipo tipo = Tipo.USUARIO;

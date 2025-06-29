@@ -7,6 +7,8 @@ import org.example.flowin2.infrastructure.security.JwtService;
 import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
 import org.example.flowin2.web.dto.usuario.UsuarioRequest;
 import org.example.flowin2.web.dto.usuario.UsuarioResponse;
+import org.example.flowin2.web.dto.usuario.UsuarioUpdateArtistas;
+import org.example.flowin2.web.dto.usuario.UsuarioUpdateGustos;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -63,4 +65,25 @@ public class UsuarioService {
         response.setArtistasFavoritos(usuario.getArtistasFavoritos());
         return response;
     }
+    public UsuarioResponse actualizarArtistasFavoritos(String token, UsuarioUpdateArtistas updateRequest) {
+        String username = jwtService.extractUserName(token.substring(7)); // sin "Bearer "
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        usuario.setArtistasFavoritos(updateRequest.getArtistasFavoritos());
+        Usuario actualizado = usuarioRepository.save(usuario);
+
+        return mapUsuarioToResponse(actualizado);
+    }
+    public UsuarioResponse actualizarGustosMusicales(String token, UsuarioUpdateGustos updateRequest) {
+        String username = jwtService.extractUserName(token.substring(7)); // sin "Bearer "
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        usuario.setArtistasFavoritos(updateRequest.getGustosMusicales());
+        Usuario actualizado = usuarioRepository.save(usuario);
+
+        return mapUsuarioToResponse(actualizado);
+    }
+
 }

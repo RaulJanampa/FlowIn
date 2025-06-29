@@ -6,6 +6,8 @@ import org.example.flowin2.infrastructure.security.JwtService;
 import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
 import org.example.flowin2.web.dto.usuario.UsuarioRequest;
 import org.example.flowin2.web.dto.usuario.UsuarioResponse;
+import org.example.flowin2.web.dto.usuario.UsuarioUpdateArtistas;
+import org.example.flowin2.web.dto.usuario.UsuarioUpdateGustos;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.Optional;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+
     private final JwtService jwtService;
 
     public UsuarioController(UsuarioService usuarioService, JwtService jwtService) {
@@ -39,5 +42,23 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> verPerfil(@RequestHeader("Authorization") String token) {
         UsuarioResponse perfil = usuarioService.obtenerPerfil(token);
         return ResponseEntity.ok(perfil);
+    }
+
+    @PatchMapping("/actualizar-artistas")
+    public ResponseEntity<UsuarioResponse> actualizarArtistasFavoritos(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Validated UsuarioUpdateArtistas updateRequest
+    ) {
+        UsuarioResponse actualizado = usuarioService.actualizarArtistasFavoritos(token, updateRequest);
+        return ResponseEntity.ok(actualizado);
+    }
+
+    @PatchMapping("/actualizar-gustosMusicales")
+    public ResponseEntity<UsuarioResponse> actualizarGustosMusicales(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Validated UsuarioUpdateGustos updateRequest
+    ) {
+        UsuarioResponse actualizado = usuarioService.actualizarGustosMusicales(token, updateRequest);
+        return ResponseEntity.ok(actualizado);
     }
 }
