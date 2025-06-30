@@ -48,6 +48,7 @@ public class SecurityConfig {
                                         "/usuario/registrarse",
                                         "/music/**",
                                         "/auth/login",
+                                        "/aws/**",
                                         "/ws-chat/**",         // ✅ Permitir WebSocket handshake
                                         "/topic/**",           // ✅ Permitir recibir mensajes
                                         "/app/**"              // ✅ Permitir enviar mensajes
