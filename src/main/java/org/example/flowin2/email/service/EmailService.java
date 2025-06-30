@@ -42,7 +42,7 @@ public class EmailService {
                             "</ul>" +
                             "<p style='margin-top: 20px;'>Haz clic en el siguiente botón para comenzar:</p>" +
                             "<div style='text-align: center; margin: 30px 0;'>" +
-                            "<a href='https://flowin.tuapp.com' " +
+                            "<a href='http://localhost:5173/home' " +
                             "style='background-color: #13ad32; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-size: 16px;'>Explorar FlowIn 🚀</a>" +
                             "</div>" +
                             "<p style='color: #777;'>Gracias por unirte a FlowIn. ¡Nos vemos dentro! 👋</p>" +
