@@ -98,9 +98,6 @@ public class SalaService {
 
         Sala sala = salaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sala no encontrada con ID: " + id));
-        System.out.println("ID usuario autenticado: " + host.getId());
-        System.out.println("ID host de la sala: " + sala.getHost().getId());
-        System.out.println("Equals? " + sala.getHost().getId().equals(host.getId()));
 
 
         if (!sala.getHost().getId().equals(host.getId())) {
