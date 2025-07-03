@@ -1,5 +1,6 @@
 package org.example.flowin2.web.dto.sala;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -14,7 +15,7 @@ public class SalaRequest {
 
     @NotNull(/*message = "El género no puede ser nulo"*/)
     @Size(min = 1, message = "Debe haber al menos un género")
-    private List<String> genero;
+    private List<@NotEmpty String> genero;
 
     @NotBlank(message = "El artista no puede estar vacío")
     private String artista;
@@ -22,7 +23,6 @@ public class SalaRequest {
     //Por defecto el estado va a estar activo porq se estará creando una sala
     private Estado estado = Estado.ACTIVA;
 
-    @NotNull(/*message = "La lista de canciones no puede ser nula"*/)
-    @Size(min = 1, message = "Debe haber al menos una canción")
-    private List<String> canciones;
+    @jakarta.validation.constraints.NotNull
+    private String canciones;
 }

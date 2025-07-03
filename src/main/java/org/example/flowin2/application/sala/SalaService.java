@@ -98,14 +98,21 @@ public class SalaService {
 
         Sala sala = salaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sala no encontrada con ID: " + id));
+        System.out.println("ID usuario autenticado: " + host.getId());
+        System.out.println("ID host de la sala: " + sala.getHost().getId());
+        System.out.println("Equals? " + sala.getHost().getId().equals(host.getId()));
+
 
         if (!sala.getHost().getId().equals(host.getId())) {
             throw new SecurityException("No autorizado. Solo el host puede editar esta sala.");
         }
 
-        if (request.getNombre() != null) sala.setNombre(request.getNombre());
-        if (request.getGenero() != null) sala.setGenero(Collections.singletonList(request.getGenero()));
-        if (request.getCanciones() != null) sala.setCanciones(request.getCanciones());
+        if (request.getGenero() != null) {
+            sala.setGenero(request.getGenero());
+        }
+        if (request.getArtista() != null) {
+            sala.setArtista((request.getArtista()));
+        }
 
         salaRepository.save(sala);
         return mapToResponse(sala);

@@ -10,6 +10,6 @@ public class SalaResponse {
     private String nombre;
     private List<String> genero;
     private String artista;
-    private List<String> canciones;
+    private String canciones;
     private List<UsuarioResponse> usuariosConectados;
 }

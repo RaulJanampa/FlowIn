@@ -1,5 +1,6 @@
 package org.example.flowin2.web.dto.sala;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 @Data
 public class SalaUpdateRequest {
     private String nombre;
-    private String genero;
+    private List<@NotEmpty String> genero;
     private String artista;
-    private List<String> canciones;
+    private String canciones;
 }

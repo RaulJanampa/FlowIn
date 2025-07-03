@@ -20,11 +20,12 @@ public class Sala {
     @ElementCollection
     private List<String> genero;
 
+    private String artista;
+
     @Enumerated(EnumType.STRING)
     private Estado estado = Estado.ACTIVA;
 
-    @ElementCollection
-    private List<String> canciones;
+    private String canciones;
 
     @OneToMany(mappedBy = "sala")
     private List<Usuario> usuariosConectados;
