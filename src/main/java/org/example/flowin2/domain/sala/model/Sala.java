@@ -31,8 +31,11 @@ public class Sala {
     private List<Usuario> usuariosConectados;
     @ManyToOne
     @JoinColumn(name = "host_id")
-    //verificar esto
     private Usuario host;
+
+    private String cancionActual;
+    private Boolean reproduciendo = false;
+    private Long timestampInicio; // Epoch millisy
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chat_message", joinColumns = @JoinColumn(name = "sala_id"))

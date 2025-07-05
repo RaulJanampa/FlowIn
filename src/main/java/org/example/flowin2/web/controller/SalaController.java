@@ -10,6 +10,7 @@ import org.example.flowin2.domain.usuario.model.Usuario;
 import org.example.flowin2.infrastructure.security.JwtService;
 import org.example.flowin2.shared.exceptions.ResourceConflictException;
 import org.example.flowin2.shared.exceptions.ResourceNotFoundException;
+import org.example.flowin2.web.dto.musicControlMessage.EstadoReproduccionDTO;
 import org.example.flowin2.web.dto.sala.SalaRequest;
 import org.example.flowin2.web.dto.sala.SalaResponse;
 import org.example.flowin2.web.dto.sala.SalaUpdateRequest;
@@ -113,4 +114,19 @@ public class SalaController {
         SalaResponse salaActualizada = salaService.actualizarSalaComoHost(id, request, token);
         return ResponseEntity.ok(salaActualizada);
     }
+
+    @GetMapping("/salas/{salaId}/musica/estado")
+    public ResponseEntity<EstadoReproduccionDTO> getEstadoMusical(@PathVariable Long salaId) {
+        Sala sala = salaRepository.findById(salaId)
+                .orElseThrow(() -> new RuntimeException("Sala no encontrada"));
+
+        EstadoReproduccionDTO dto = new EstadoReproduccionDTO(
+                sala.getCancionActual(),
+                sala.getReproduciendo(),
+                sala.getTimestampInicio()
+        );
+
+        return ResponseEntity.ok(dto);
+    }
+
 }
