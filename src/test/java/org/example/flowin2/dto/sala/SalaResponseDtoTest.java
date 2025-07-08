@@ -30,7 +30,7 @@ public class SalaResponseDtoTest {
         String nombre = "Sala de Jazz";
         List<String> genero = Arrays.asList("Jazz", "Blues");
         String artista = "Miles Davis";
-        List<String> canciones = Arrays.asList("So What", "Blue in Green");
+        String canciones = "So What, Blue in Green";
         List<UsuarioResponse> usuarios = Arrays.asList(new UsuarioResponse());
 
         salaResponse.setId(id);
@@ -51,7 +51,7 @@ public class SalaResponseDtoTest {
     @Test
     public void testEqualsYHashCode() {
         List<String> genero = Arrays.asList("Rock");
-        List<String> canciones = Arrays.asList("Cancion1");
+        String canciones = "Cancion1";
         List<UsuarioResponse> usuarios = Arrays.asList(new UsuarioResponse());
 
         SalaResponse response1 = new SalaResponse();
@@ -90,7 +90,7 @@ public class SalaResponseDtoTest {
         response.setNombre("Sala Test");
         response.setGenero(Arrays.asList("Pop"));
         response.setArtista("Artista Test");
-        response.setCanciones(Arrays.asList("Cancion Test"));
+        response.setCanciones("Cancion Test");
         response.setUsuariosConectados(Arrays.asList(new UsuarioResponse()));
 
         String toStringResult = response.toString();
@@ -99,7 +99,7 @@ public class SalaResponseDtoTest {
         assertTrue(toStringResult.contains("nombre=Sala Test"));
         assertTrue(toStringResult.contains("genero=[Pop]"));
         assertTrue(toStringResult.contains("artista=Artista Test"));
-        assertTrue(toStringResult.contains("canciones=[Cancion Test]"));
+        assertTrue(toStringResult.contains("canciones=Cancion Test"));
         assertTrue(toStringResult.contains("usuariosConectados="));
     }
 }

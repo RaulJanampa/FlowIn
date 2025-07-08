@@ -29,7 +29,7 @@ public class SalaRequestDtoTest {
         List<String> genero = Arrays.asList("Rock", "Metal");
         String artista = "Metallica";
         Estado estado = Estado.INACTIVA;
-        List<String> canciones = Arrays.asList("Enter Sandman", "Nothing Else Matters");
+        String canciones = "Enter Sandman, Nothing Else Matters";
 
         salaRequest.setNombre(nombre);
         salaRequest.setGenero(genero);
@@ -53,7 +53,7 @@ public class SalaRequestDtoTest {
     @Test
     public void testEqualsYHashCode() {
         List<String> genero1 = Arrays.asList("Rock");
-        List<String> canciones1 = Arrays.asList("Cancion1");
+        String canciones1 = "Cancion1";
 
         SalaRequest request1 = new SalaRequest();
         request1.setNombre("Sala 1");
@@ -84,7 +84,7 @@ public class SalaRequestDtoTest {
         request.setNombre("Sala Test");
         request.setGenero(Arrays.asList("Pop"));
         request.setArtista("Artista Test");
-        request.setCanciones(Arrays.asList("Cancion Test"));
+        request.setCanciones("Cancion Test");
 
         String toStringResult = request.toString();
 
@@ -92,6 +92,6 @@ public class SalaRequestDtoTest {
         assertTrue(toStringResult.contains("genero=[Pop]"));
         assertTrue(toStringResult.contains("artista=Artista Test"));
         assertTrue(toStringResult.contains("estado=ACTIVA"));
-        assertTrue(toStringResult.contains("canciones=[Cancion Test]"));
+        assertTrue(toStringResult.contains("canciones=Cancion Test"));
     }
 }
