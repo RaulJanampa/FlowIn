@@ -1,13 +1,13 @@
 package org.example.flowin2.web.controller;
 
+import jakarta.transaction.Transactional;
 import org.example.flowin2.application.chat.ChatService;
-import org.example.flowin2.domain.chatMessage.ChatMessage;
+import org.example.flowin2.domain.chatMessage.model.ChatMessage;
 import org.example.flowin2.domain.sala.model.Sala;
 import org.example.flowin2.domain.sala.repository.SalaRepository;
 import org.example.flowin2.infrastructure.security.JwtService;
 import org.example.flowin2.web.dto.chatMessage.ChatMessageDTO;
 import org.example.flowin2.web.dto.musicControlMessage.MusicControlMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -33,16 +33,28 @@ public class ChatWebSocketController {
         this.salaRepository = salaRepository;
     }
 
-
+    @Transactional  // Asegurarse de que la transacción esté abierta
     @MessageMapping("/chat.send")
     public void enviarMensaje(ChatMessageDTO message, @Header("Authorization") String token) {
         try {
             String username = jwtService.extractUserName(token.replace("Bearer ", ""));
 
+            // Recuperamos la sala y inicializamos explícitamente las colecciones
+            Optional<Sala> optionalSala = salaRepository.findById(message.getSalaId());
+            if (optionalSala.isEmpty()) {
+                throw new RuntimeException("Sala no encontrada");
+            }
+            Sala sala = optionalSala.get();
+
+            // Inicializamos la colección 'usuariosConectados' para evitar LazyLoading
+            sala.getUsuariosConectados().size();  // Esto inicializa la colección 'usuariosConectados'
+
+            // Ahora guardamos el mensaje
             List<ChatMessage> mensajesActualizados = chatService.guardarMensaje(
                     message.getSalaId(), username, message.getContenido()
             );
 
+            // Enviar el mensaje actualizado al frontend
             messagingTemplate.convertAndSend("/topic/sala/" + message.getSalaId(), mensajesActualizados);
         } catch (Exception e) {
             messagingTemplate.convertAndSend(

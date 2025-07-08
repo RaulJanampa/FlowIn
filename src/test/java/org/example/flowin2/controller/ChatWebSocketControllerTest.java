@@ -1,7 +1,7 @@
 package org.example.flowin2.controller;
 
 import org.example.flowin2.application.chat.ChatService;
-import org.example.flowin2.domain.chatMessage.ChatMessage;
+import org.example.flowin2.domain.chatMessage.model.ChatMessage;
 import org.example.flowin2.infrastructure.security.JwtService;
 import org.example.flowin2.web.controller.ChatWebSocketController;
 import org.example.flowin2.web.dto.chatMessage.ChatMessageDTO;

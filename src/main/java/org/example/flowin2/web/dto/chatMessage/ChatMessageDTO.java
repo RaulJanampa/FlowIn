@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessageDTO {
+    private Long id; // Id del mensaje
     private Long salaId;
     private String contenido;
 }

@@ -1,5 +1,6 @@
 package org.example.flowin2.domain.usuario.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.example.flowin2.domain.sala.model.Sala;
@@ -33,5 +34,6 @@ public class Usuario {
     private Sala sala;
 
     @OneToOne
+    @JsonBackReference
     private Sala salaComoHost;
 }
