@@ -51,7 +51,8 @@ public class SecurityConfig {
                                         "/aws/**",
                                         "/ws-chat/**",         // ✅ Permitir WebSocket handshake
                                         "/topic/**",           // ✅ Permitir recibir mensajes
-                                        "/app/**"              // ✅ Permitir enviar mensajes
+                                        "/app/**",
+                                        "/sala/{id}/usuarios/conectados"// ✅ Permitir enviar mensajes
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -63,6 +64,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
 
     @Bean

@@ -43,6 +43,8 @@ public class SalaService {
 
         usuario.setTipo(Tipo.HOST);
         usuario.setSalaComoHost(sala);
+        usuario.setSala(sala); // <- Asignar la sala al usuario también
+
 
         sala.setUsuariosConectados(List.of(usuario));
 
@@ -74,6 +76,8 @@ public class SalaService {
 
         if (!sala.getUsuariosConectados().contains(usuario)) {
             sala.getUsuariosConectados().add(usuario);
+            usuario.setSala(sala); // <-- Asignar la sala al usuario
+            usuarioRepository.save(usuario); // <-- Guardar usuario con la sala asignada
             salaRepository.save(sala);
         }
 
@@ -90,6 +94,8 @@ public class SalaService {
 
         if (!sala.getUsuariosConectados().contains(usuario)) {
             sala.getUsuariosConectados().add(usuario);
+            usuario.setSala(sala); // <-- Asignar la sala al usuario
+            usuarioRepository.save(usuario); // <-- Guardar usuario con la sala asignada
             salaRepository.save(sala);
         }
 
@@ -132,34 +138,62 @@ public class SalaService {
     }
 
     public void salirDeSala(String username) {
+        System.out.println("➡️ Intentando salir de la sala: " + username);
+
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
 
+        System.out.println("🔍 Tipo de usuario: " + usuario.getTipo());
+
         Sala sala;
 
-        if (usuario.getTipo() == Tipo.HOST && usuario.getSalaComoHost() != null) {
-            // Si es HOST, obtiene y elimina la sala completamente
+        if (usuario.getTipo() == Tipo.HOST) {
             sala = usuario.getSalaComoHost();
 
-            // Limpia referencias
+            if (sala == null) {
+                throw new IllegalStateException("El usuario es HOST pero no tiene sala asignada como host.");
+            }
+
+            System.out.println("🧹 El host eliminará la sala: " + sala.getNombre());
+
+            // Limpia a todos los usuarios conectados
+            for (Usuario u : sala.getUsuariosConectados()) {
+                u.setSala(null);
+                System.out.println("🚪 Usuario desconectado: " + u.getUsername());
+            }
+
+            // Limpia referencias del host
             usuario.setTipo(Tipo.USUARIO);
             usuario.setSalaComoHost(null);
+            usuario.setSala(null);
+
+            sala.getUsuariosConectados().clear(); // por seguridad
 
             // Borra la sala de la base de datos
             salaRepository.delete(sala);
-            return;
+            System.out.println("✅ Sala eliminada junto con todos los usuarios desconectados");
+
         } else {
             // Si no es HOST, busca la sala donde esté conectado
             sala = salaRepository.findAll().stream()
                     .filter(s -> s.getUsuariosConectados().contains(usuario))
                     .findFirst()
-                    .orElseThrow(() -> new ResourceNotFoundException("No estás en ninguna sala"));
+                    .orElseThrow(() -> new ResourceNotFoundException("❌ No estás conectado a ninguna sala"));
 
-            // Quitar al usuario de la lista de conectados
-            sala.getUsuariosConectados().remove(usuario);
+            System.out.println("👤 Usuario será eliminado de la sala: " + sala.getNombre());
+
+            boolean removed = sala.getUsuariosConectados().remove(usuario);
+            if (!removed) {
+                throw new IllegalStateException("⚠️ No se pudo eliminar al usuario de la lista de conectados");
+            }
+
+            usuario.setSala(null);
             salaRepository.save(sala);
+
+            System.out.println("✅ Usuario removido de la sala con éxito");
         }
     }
+
 
     public int contarUsuariosConectados(Long salaId) {
         Sala sala = salaRepository.findById(salaId)

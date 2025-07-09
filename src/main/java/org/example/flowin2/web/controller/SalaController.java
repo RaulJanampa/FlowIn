@@ -53,13 +53,23 @@ public class SalaController {
 
     @PostMapping("/salir")
     public ResponseEntity<String> salirDeSala() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+            System.out.println("👤 Intentando salir usuario: " + username);
 
-        salaService.salirDeSala(username);
+            salaService.salirDeSala(username);
 
-        return ResponseEntity.ok("Saliste de la sala correctamente");
+            return ResponseEntity.ok("✅ Saliste de la sala correctamente");
+
+        } catch (Exception e) {
+            System.out.println("🔥 ERROR al salir de sala: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("❌ Error interno al salir de la sala");
+        }
     }
+
+
 
     @GetMapping("/buscar")
     public ResponseEntity<List<SalaResponse>> buscarSalas(
