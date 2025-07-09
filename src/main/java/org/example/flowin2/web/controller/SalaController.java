@@ -56,24 +56,9 @@ public class SalaController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        Usuario usuario = usuarioService.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
+        salaService.salirDeSala(username);
 
-        if (usuario.getTipo() == Tipo.HOST && usuario.getSalaComoHost() != null) {
-            Sala sala = usuario.getSalaComoHost();
-
-            sala.setHost(null);
-            sala.setEstado(Estado.INACTIVA);
-
-            usuario.setTipo(Tipo.USUARIO);
-            usuario.setSalaComoHost(null);
-
-            salaRepository.save(sala);
-
-            return ResponseEntity.ok("Saliste de la sala y perdiste el rol de HOST");
-        }
-
-        throw new ResourceConflictException("No eres host de ninguna sala");
+        return ResponseEntity.ok("Saliste de la sala correctamente");
     }
 
     @GetMapping("/buscar")
@@ -129,4 +114,9 @@ public class SalaController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("/{id}/usuarios/conectados")
+    public ResponseEntity<Integer> obtenerCantidadUsuariosConectados(@PathVariable Long id) {
+        int cantidad = salaService.contarUsuariosConectados(id);
+        return ResponseEntity.ok(cantidad);
+    }
 }

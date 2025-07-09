@@ -41,10 +41,10 @@ public class Sala {
 
     private String cancionActual;
     private Boolean reproduciendo = false;
-    private Long timestampInicio; // Epoch millisy
+    private Long timestampInicio;
 
     // Relación uno a muchos con ChatMessage
     @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<ChatMessage> mensajesChat = new ArrayList<>();
+    private List<ChatMessage> mensajesChat;
 }

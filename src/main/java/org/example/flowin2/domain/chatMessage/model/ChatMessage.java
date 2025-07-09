@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // o @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; // ID de mensaje
+    private Long id;
 
     private String username;
     private String contenido;
     private LocalDateTime timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "sala_id") // Nombre de la columna en la tabla chat_message
+    @JoinColumn(name = "sala_id")
     @JsonBackReference
     private Sala sala;
 }

@@ -33,22 +33,19 @@ public class ChatWebSocketController {
         this.salaRepository = salaRepository;
     }
 
-    @Transactional  // Asegurarse de que la transacción esté abierta
+    @Transactional
     @MessageMapping("/chat.send")
     public void enviarMensaje(ChatMessageDTO message, @Header("Authorization") String token) {
         try {
             String username = jwtService.extractUserName(token.replace("Bearer ", ""));
 
-            // Recuperamos la sala y inicializamos explícitamente las colecciones
             Optional<Sala> optionalSala = salaRepository.findById(message.getSalaId());
             if (optionalSala.isEmpty()) {
                 throw new RuntimeException("Sala no encontrada");
             }
             Sala sala = optionalSala.get();
 
-            // Inicializamos la colección 'usuariosConectados' para evitar LazyLoading
-            sala.getUsuariosConectados().size();  // Esto inicializa la colección 'usuariosConectados'
-
+            sala.getUsuariosConectados().size();
             // Ahora guardamos el mensaje
             List<ChatMessage> mensajesActualizados = chatService.guardarMensaje(
                     message.getSalaId(), username, message.getContenido()

@@ -1,5 +1,7 @@
 package org.example.flowin2.application.sala;
 
+import org.example.flowin2.application.usuario.UsuarioService;
+import org.example.flowin2.domain.sala.model.Estado;
 import org.example.flowin2.domain.sala.model.Sala;
 import org.example.flowin2.domain.sala.repository.SalaRepository;
 import org.example.flowin2.domain.usuario.model.Tipo;
@@ -30,6 +32,9 @@ public class SalaService {
     private JwtService jwtService;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     public SalaResponse save(SalaRequest salaRequest, Usuario usuario) {
         Sala sala = modelMapper.map(salaRequest, Sala.class);
@@ -125,4 +130,44 @@ public class SalaService {
 
         return response;
     }
+
+    public void salirDeSala(String username) {
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
+
+        Sala sala;
+
+        if (usuario.getTipo() == Tipo.HOST && usuario.getSalaComoHost() != null) {
+            // Si es HOST, obtiene y elimina la sala completamente
+            sala = usuario.getSalaComoHost();
+
+            // Limpia referencias
+            usuario.setTipo(Tipo.USUARIO);
+            usuario.setSalaComoHost(null);
+
+            // Borra la sala de la base de datos
+            salaRepository.delete(sala);
+            return;
+        } else {
+            // Si no es HOST, busca la sala donde esté conectado
+            sala = salaRepository.findAll().stream()
+                    .filter(s -> s.getUsuariosConectados().contains(usuario))
+                    .findFirst()
+                    .orElseThrow(() -> new ResourceNotFoundException("No estás en ninguna sala"));
+
+            // Quitar al usuario de la lista de conectados
+            sala.getUsuariosConectados().remove(usuario);
+            salaRepository.save(sala);
+        }
+    }
+
+    public int contarUsuariosConectados(Long salaId) {
+        Sala sala = salaRepository.findById(salaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Sala no encontrada con ID: " + salaId));
+
+        return sala.getUsuariosConectados().size();
+    }
+
+
+
 }
