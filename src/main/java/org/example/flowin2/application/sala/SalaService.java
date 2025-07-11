@@ -104,6 +104,7 @@ public class SalaService {
 
     public SalaResponse actualizarSalaComoHost(Long id, SalaUpdateRequest request, String token) {
         String username = jwtService.extractUserName(token.substring(7));
+
         Usuario host = usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado: " + username));
 
@@ -114,16 +115,36 @@ public class SalaService {
             throw new SecurityException("No autorizado. Solo el host puede editar esta sala.");
         }
 
+        // ✅ Actualizar nombre si viene
+        if (request.getNombre() != null && !request.getNombre().isBlank()) {
+            sala.setNombre(request.getNombre());
+        }
+
+        // ✅ Actualizar género
         if (request.getGenero() != null) {
             sala.setGenero(request.getGenero());
         }
-        if (request.getArtista() != null) {
-            sala.setArtista((request.getArtista()));
+
+        // ✅ Actualizar artista
+        if (request.getArtista() != null && !request.getArtista().isBlank()) {
+            sala.setArtista(request.getArtista());
+        }
+
+        // ✅ Actualizar canciones (opcional, si es útil para ti)
+        if (request.getCanciones() != null && !request.getCanciones().isBlank()) {
+            sala.setCanciones(request.getCanciones());
+        }
+
+        // ✅ Actualizar canción actual + timestamp
+        if (request.getCancionActual() != null && !request.getCancionActual().isBlank()) {
+            sala.setCancionActual(request.getCancionActual());
+            sala.setTimestampInicio(System.currentTimeMillis());
         }
 
         salaRepository.save(sala);
         return mapToResponse(sala);
     }
+
 
     private SalaResponse mapToResponse(Sala sala) {
         SalaResponse response = modelMapper.map(sala, SalaResponse.class);
@@ -201,6 +222,8 @@ public class SalaService {
 
         return sala.getUsuariosConectados().size();
     }
+
+
 
 
 

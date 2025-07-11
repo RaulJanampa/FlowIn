@@ -11,4 +11,5 @@ public class SalaUpdateRequest {
     private List<@NotEmpty String> genero;
     private String artista;
     private String canciones;
+    private String cancionActual;
 }
